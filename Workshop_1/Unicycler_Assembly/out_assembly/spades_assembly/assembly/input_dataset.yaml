@@ -1,0 +1,6 @@
+- "left reads":
+  - "/home/asus/Desktop/CHRF_Project/Bioinformatics_Traning/Advance_Bioinformatics_Traning/Unicycler_Assembly/out_assembly/spades_assembly/corrected_1.fastq.gz"
+  "orientation": "fr"
+  "right reads":
+  - "/home/asus/Desktop/CHRF_Project/Bioinformatics_Traning/Advance_Bioinformatics_Traning/Unicycler_Assembly/out_assembly/spades_assembly/corrected_2.fastq.gz"
+  "type": "paired-end"

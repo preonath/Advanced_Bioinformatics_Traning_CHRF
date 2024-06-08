@@ -1,0 +1,439 @@
+
+Starting Unicycler (2023-06-01 09:41:21)
+----------------------------------------
+    Welcome to Unicycler, an assembly pipeline for bacterial genomes. Since you provided only short reads, Unicycler will essentially function as a SPAdes-optimiser. It will try many k-mer sizes, choose the best based on contig length and graph connectivity, and scaffold the graph using SPAdes repeat resolution.
+    For more information, please see https://github.com/rrwick/Unicycler
+
+Command: /usr/bin/unicycler -1 /home/asus/Desktop/CHRF_Project/Bioinformatics_Traning/Advance_Bioinformatics_Traning/Data/SPN_0140/1_RawData/SPN_0140_GPS_S122_L001_R1_001.fastq.gz -2 /home/asus/Desktop/CHRF_Project/Bioinformatics_Traning/Advance_Bioinformatics_Traning/Data/SPN_0140/1_RawData/SPN_0140_GPS_S122_L001_R2_001.fastq.gz --min_fasta_length 300 -t 85 --keep 1 -o /home/asus/Desktop/CHRF_Project/Bioinformatics_Traning/Advance_Bioinformatics_Traning/Data/SPN_0140/3_Unicycler/
+
+Unicycler version: v0.4.8
+Using 85 threads
+
+Warning: you have specified a lot more threads than this machine seems to have! Was this intentional?
+
+Making output directory:
+  /home/asus/Desktop/CHRF_Project/Bioinformatics_Traning/Advance_Bioinformatics_Traning/Data/SPN_0140/3_Unicycler
+
+Dependencies:
+  Program         Version   Status  
+  spades          3.13.1    good    
+  racon                     not used
+  makeblastdb     2.12.0+   good    
+  tblastn         2.12.0+   good    
+  bowtie2-build   2.4.4     good    
+  bowtie2         2.4.4     good    
+  samtools        1.13      good    
+  java            11.0.19   good    
+  pilon           ?         good    
+  bcftools                  not used
+
+
+SPAdes read error correction (2023-06-01 09:41:30)
+--------------------------------------------------
+    Unicycler uses the SPAdes read error correction module to reduce the number of errors in the short read before SPAdes assembly. This can make the assembly faster and simplify the assembly graph structure.
+
+Command: /usr/lib/spades/bin/spades.py -1 /home/asus/Desktop/CHRF_Project/Bioinformatics_Traning/Advance_Bioinformatics_Traning/Data/SPN_0140/1_RawData/SPN_0140_GPS_S122_L001_R1_001.fastq.gz -2 /home/asus/Desktop/CHRF_Project/Bioinformatics_Traning/Advance_Bioinformatics_Traning/Data/SPN_0140/1_RawData/SPN_0140_GPS_S122_L001_R2_001.fastq.gz -o /home/asus/Desktop/CHRF_Project/Bioinformatics_Traning/Advance_Bioinformatics_Traning/Data/SPN_0140/3_Unicycler/spades_assembly/read_correction --threads 32 --only-error-correction
+
+Corrected reads:
+  /home/asus/Desktop/CHRF_Project/Bioinformatics_Traning/Advance_Bioinformatics_Traning/Data/SPN_0140/3_Unicycler/spades_assembly/corrected_1.fastq.gz
+  /home/asus/Desktop/CHRF_Project/Bioinformatics_Traning/Advance_Bioinformatics_Traning/Data/SPN_0140/3_Unicycler/spades_assembly/corrected_2.fastq.gz
+
+
+Choosing k-mer range for assembly (2023-06-01 09:44:49)
+-------------------------------------------------------
+    Unicycler chooses a k-mer range for SPAdes based on the length of the input reads. It uses a wide range of many k-mer sizes to maximise the chance of finding an ideal assembly.
+
+SPAdes maximum k-mer: 127
+Median read length: 151
+K-mer range: 27, 47, 63, 77, 89, 99, 107, 115, 121, 127
+
+
+SPAdes assemblies (2023-06-01 09:44:57)
+---------------------------------------
+    Unicycler now uses SPAdes to assemble the short reads. It scores the assembly graph for each k-mer using the number of contigs (fewer is better) and the number of dead ends (fewer is better). The score function is 1/(c*(d+2)), where c is the contig count and d is the dead end count.
+
+K-mer   Contigs   Dead ends   Score   
+   27                           failed
+   47                           failed
+   63                           failed
+   77                           failed
+   89                           failed
+   99                           failed
+  107                           failed
+  115                           failed
+  121                           failed
+  127       245           0   2.04e-03 ← best
+
+Read depth filter: removed 6 contigs totalling 1556 bp
+Deleting /home/asus/Desktop/CHRF_Project/Bioinformatics_Traning/Advance_Bioinformatics_Traning/Data/SPN_0140/3_Unicycler/spades_assembly/
+
+
+Determining graph multiplicity (2023-06-01 09:48:59)
+----------------------------------------------------
+    Multiplicity is the number of times a sequence occurs in the underlying sequence. Single-copy contigs (those with a multiplicity of one, occurring only once in the underlying sequence) are particularly useful.
+
+Saving /home/asus/Desktop/CHRF_Project/Bioinformatics_Traning/Advance_Bioinformatics_Traning/Data/SPN_0140/3_Unicycler/001_best_spades_graph.gfa
+
+
+Cleaning graph (2023-06-01 09:48:59)
+------------------------------------
+    Unicycler now performs various cleaning procedures on the graph to remove overlaps and simplify the graph structure. The end result is a graph ready for bridging.
+
+Graph overlaps removed
+
+Removed zero-length segments:
+    148, 153, 156, 160, 164, 171, 172, 173, 178, 179, 181, 188, 192, 198, 199, 203, 206, 208, 209, 210, 211, 214, 215, 220, 229, 235, 236, 238
+
+Removed zero-length segments:
+    142, 197
+
+Merged small segments:
+    234, 239, 240, 242
+
+Saving /home/asus/Desktop/CHRF_Project/Bioinformatics_Traning/Advance_Bioinformatics_Traning/Data/SPN_0140/3_Unicycler/002_overlaps_removed.gfa
+
+    Unicycler now selects a set of anchor contigs from the single-copy contigs. These are the contigs which will be connected via bridges to form the final assembly.
+
+77 anchor segments (2,035,650 bp) out of 212 total segments (2,072,052 bp)
+
+
+Creating SPAdes contig bridges (2023-06-01 09:48:59)
+----------------------------------------------------
+    SPAdes uses paired-end information to perform repeat resolution (RR) and produce contigs from the assembly graph. SPAdes saves the graph paths corresponding to these contigs in the contigs.paths file. When one of these paths contains two or more anchor contigs, Unicycler can create a bridge from the path.
+
+                                                                                                   Bridge
+Start                                         Path                                        End     quality
+  -59                                   173 → 197 → 163                                   64         63.2
+  -53                                         142                                         55         62.3
+  -42                       111 → 91 → -209 → -135 → -129 → 82 → 133                      80         14.7
+  -41                                         -83                                         60         27.2
+  -31                             181 → 102 → -167 → 139 → 183                            44         28.3
+  -28                                130 → -125 → -97 → 139                               49         24.0
+  -26                                          93                                         72         38.2
+  -21                                         141                                         34         63.2
+  -16                               100 → -153 → -135 → -129                              35         26.0
+   -5                                         -146                                        20         63.0
+    1                                         150                                         33         63.1
+    2                                         -118                                        -73        63.0
+    3                         -125 → 181 → 103 → -167 → 139 → 183                         6          24.4
+    4                                         159                                         1          63.0
+    7                     -138 → -106 → -126 → 86 → -138 → 108 → -126                     46          9.8
+    8                                      179 → 159                                      22         63.2
+   10                                         -166                                        -74        63.2
+   11                                         -134                                        38         63.0
+   15                                         146                                         -63        63.0
+   18                                         113                                         71         63.2
+   19                                         -130                                        -50        62.5
+   21                                         113                                         -71        63.0
+   22                                         179                                         -28        62.9
+   29             -175 → -163 → -196 → 211 → 143 → 99 → 201 → 208 → 210 → -151            -44        25.0
+   35                                         170                                         62         61.7
+   37                                         142                                         69         59.7
+   38   123 → 144 → 151 → -210 → -208 → 162 → 205 → -147 → 145 → 173 → -148 → 175 → 206   65         21.4
+   39                                      110 → 192                                      19         53.6
+   40                                110 → 192 → -112 → 182                               2          29.6
+   41                                         160                                         -67        62.8
+   45                               110 → -119 → -166 → 182                               32         29.5
+   46                                      157 → -133                                     78         61.1
+   49                                         150                                         18         63.2
+   51                                         157                                         76         59.8
+   54                                         -136                                        7          62.8
+   59                                         134                                         52         63.1
+   60                                         -83                                         68         27.2
+   62                                     -164 → -164                                     10         60.4
+   64                                      188 → 188                                      63         42.3
+   70                                         -141                                        39         63.1
+   72                                          93                                         29         38.0
+   78                                  -100 → -187 → -111                                 23         28.4
+
+
+Creating loop unrolling bridges (2023-06-01 09:48:59)
+-----------------------------------------------------
+    When a SPAdes contig path connects an anchor contig with the middle contig of a simple loop, Unicycler concludes that the sequences are contiguous (i.e. the loop is not a separate piece of DNA). It then uses the read depth of the middle and repeat contigs to guess the number of times to traverse the loop and makes a bridge.
+
+                                  Loop count   Loop count    Loop    Bridge
+Start   Repeat   Middle     End    by repeat    by middle   count   quality
+  -26       93       72      29         0.77         1.04       1      44.7
+  -41      -83       60      68         0.81         0.97       1      43.6
+
+
+Applying bridges (2023-06-01 09:48:59)
+--------------------------------------
+    Unicycler now applies to the graph in decreasing order of quality. This ensures that when multiple, contradictory bridges exist, the most supported option is used.
+
+Bridge type   Start → end   Path                                       Quality
+SPAdes           18 → 71    113                                         63.244
+SPAdes            8 → 22    179, 159                                    63.222
+SPAdes          -21 → 34    141                                         63.220
+SPAdes           49 → 18    150                                         63.194
+SPAdes          -59 → 64    173, 197, 163                               63.166
+SPAdes           10 → -74   -166                                        63.151
+SPAdes           59 → 52    134                                         63.147
+SPAdes            1 → 33    150                                         63.131
+SPAdes           70 → 39    -141                                        63.053
+SPAdes           -5 → 20    -146                                        63.039
+SPAdes           15 → -63   146                                         63.036
+SPAdes            4 → 1     159                                         63.010
+SPAdes           11 → 38    -134                                        63.002
+SPAdes            2 → -73   -118                                        62.982
+SPAdes           21 → -71   113                                         62.972
+SPAdes           22 → -28   179                                         62.944
+SPAdes           41 → -67   160                                         62.777
+SPAdes           54 → 7     -136                                        62.767
+SPAdes           19 → -50   -130                                        62.478
+SPAdes          -53 → 55    142                                         62.256
+SPAdes           35 → 62    170                                         61.654
+SPAdes           46 → 78    157, -133                                   61.124
+SPAdes           62 → 10    -164, -164                                  60.396
+SPAdes           51 → 76    157                                         59.820
+SPAdes           37 → 69    142                                         59.720
+SPAdes           39 → 19    110, 192                                    53.618
+SPAdes           64 → 63    188, 188                                    42.265
+SPAdes          -26 → 72    93                                          38.201
+SPAdes           72 → 29    93                                          38.030
+SPAdes           40 → 2     110, 192, -112, 182                         29.647
+SPAdes           45 → 32    110, -119, -166, 182                        29.542
+SPAdes           78 → 23    -100, -187, -111                            28.360
+SPAdes          -31 → 44    181, 102, -167, 139, 183                    28.341
+SPAdes           60 → 68    -83                                         27.185
+SPAdes          -41 → 60    -83                                         27.176
+SPAdes          -16 → 35    100, -153, -135, -129                       25.984
+SPAdes           29 → -44   -175, -163, -196, 211, 143, 99, 201,        25.048
+                            208, 210, -151                                    
+SPAdes            3 → 6     -125, 181, 103, -167, 139, 183              24.380
+SPAdes          -28 → 49    130, -125, -97, 139                         24.002
+SPAdes           38 → 65    123, 144, 151, -210, -208, 162, 205,        21.377
+                            -147, 145, 173, -148, 175, 206                    
+SPAdes          -42 → 80    111, 91, -209, -135, -129, 82, 133          14.679
+
+Saving /home/asus/Desktop/CHRF_Project/Bioinformatics_Traning/Advance_Bioinformatics_Traning/Data/SPN_0140/3_Unicycler/003_bridges_applied.gfa
+
+
+Bridged assembly graph (2023-06-01 09:48:59)
+--------------------------------------------
+    The assembly is now mostly finished and no more structural changes will be made. Ideally the assembly graph should now have one contig per replicon and no erroneous contigs (i.e a complete assembly). If there are more contigs, then the assembly is not complete.
+
+Saving /home/asus/Desktop/CHRF_Project/Bioinformatics_Traning/Advance_Bioinformatics_Traning/Data/SPN_0140/3_Unicycler/004_final_clean.gfa
+
+Component   Segments   Links   Length      N50      Longest segment   Status    
+        1        117     157   2,079,512   95,907           253,022   incomplete
+
+
+Polishing assembly with Pilon (2023-06-01 09:48:59)
+---------------------------------------------------
+    Unicycler now conducts multiple rounds of Pilon in an attempt to repair any remaining small-scale errors with the assembly.
+
+Aligning reads to find appropriate insert size range...
+Insert size 1st percentile:  155
+Insert size 99th percentile: 678
+
+Pilon polish round 1
+Unable to polish assembly using Pilon: Samtools encountered an error:
+samtools sort: couldn't allocate memory for bam_mem
+
+
+
+Assembly complete (2023-06-01 10:05:47)
+---------------------------------------
+Saving /home/asus/Desktop/CHRF_Project/Bioinformatics_Traning/Advance_Bioinformatics_Traning/Data/SPN_0140/3_Unicycler/assembly.gfa
+Saving /home/asus/Desktop/CHRF_Project/Bioinformatics_Traning/Advance_Bioinformatics_Traning/Data/SPN_0140/3_Unicycler/assembly.fasta
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Starting Unicycler (2023-06-08 13:07:01)
+----------------------------------------
+    Welcome to Unicycler, an assembly pipeline for bacterial genomes. Since you provided only short reads, Unicycler will essentially function as a SPAdes-optimiser. It will try many k-mer sizes, choose the best based on contig length and graph connectivity, and scaffold the graph using SPAdes repeat resolution.
+    For more information, please see https://github.com/rrwick/Unicycler
+
+Command: /usr/bin/unicycler -1 /home/asus/Desktop/CHRF_Project/Bioinformatics_Traning/Advance_Bioinformatics_Traning/Data/SPN_0140/1_RawData/SPN_0140_GPS_S122_L001_R1_001.fastq.gz -2 /home/asus/Desktop/CHRF_Project/Bioinformatics_Traning/Advance_Bioinformatics_Traning/Data/SPN_0140/1_RawData/SPN_0140_GPS_S122_L001_R2_001.fastq.gz --min_fasta_length 300 -t 85 --keep 1 -o /home/asus/Desktop/CHRF_Project/Bioinformatics_Traning/Advance_Bioinformatics_Traning/Data/SPN_0140/3_Unicycler/
+
+Unicycler version: v0.4.8
+Using 85 threads
+
+Warning: you have specified a lot more threads than this machine seems to have! Was this intentional?
+
+The output directory already exists and files may be reused or overwritten:
+  /home/asus/Desktop/CHRF_Project/Bioinformatics_Traning/Advance_Bioinformatics_Traning/Data/SPN_0140/3_Unicycler
+
+Dependencies:
+  Program         Version           Status  
+  spades          3.13.1            good    
+  racon                             not used
+  makeblastdb     2.13.0+           good    
+  tblastn         2.13.0+           good    
+  bowtie2-build   2.5.1             good    
+  bowtie2         2.5.1             good    
+  samtools        1.17              good    
+  java            17.0.3-internal   good    
+  pilon           ?                 good    
+  bcftools                          not used
+
+SPAdes graph already exists. Will use this graph instead of running SPAdes:
+  /home/asus/Desktop/CHRF_Project/Bioinformatics_Traning/Advance_Bioinformatics_Traning/Data/SPN_0140/3_Unicycler/001_best_spades_graph.gfa
+
+
+Determining graph multiplicity (2023-06-08 13:07:02)
+----------------------------------------------------
+    Multiplicity is the number of times a sequence occurs in the underlying sequence. Single-copy contigs (those with a multiplicity of one, occurring only once in the underlying sequence) are particularly useful.
+
+
+Cleaning graph (2023-06-08 13:07:02)
+------------------------------------
+    Unicycler now performs various cleaning procedures on the graph to remove overlaps and simplify the graph structure. The end result is a graph ready for bridging.
+
+Graph overlaps removed
+
+Removed zero-length segments:
+    148, 153, 156, 160, 164, 171, 172, 173, 178, 179, 181, 188, 192, 198, 199, 203, 206, 208, 209, 210, 211, 214, 215, 220, 229, 235, 236, 238
+
+Removed zero-length segments:
+    142, 197
+
+Merged small segments:
+    234, 239, 240, 242
+
+Saving /home/asus/Desktop/CHRF_Project/Bioinformatics_Traning/Advance_Bioinformatics_Traning/Data/SPN_0140/3_Unicycler/002_overlaps_removed.gfa
+
+    Unicycler now selects a set of anchor contigs from the single-copy contigs. These are the contigs which will be connected via bridges to form the final assembly.
+
+77 anchor segments (2,035,650 bp) out of 212 total segments (2,072,052 bp)
+
+
+Creating SPAdes contig bridges (2023-06-08 13:07:02)
+----------------------------------------------------
+    SPAdes uses paired-end information to perform repeat resolution (RR) and produce contigs from the assembly graph. SPAdes saves the graph paths corresponding to these contigs in the contigs.paths file. When one of these paths contains two or more anchor contigs, Unicycler can create a bridge from the path.
+
+                                                                                                   Bridge
+Start                                         Path                                        End     quality
+  -59                                   172 → 198 → 163                                   64         63.2
+  -53                                         142                                         55         62.3
+  -42                       111 → 91 → -209 → -135 → -129 → 82 → 133                      80         14.7
+  -41                                         -83                                         60         27.2
+  -31                             181 → 102 → -167 → 139 → 183                            44         28.3
+  -28                                130 → -125 → -97 → 139                               49         24.0
+  -26                                          93                                         72         38.2
+  -21                                         141                                         34         63.2
+  -16                               100 → -153 → -135 → -129                              35         26.0
+   -5                                         -146                                        20         63.0
+    1                                         150                                         33         63.1
+    2                                         -118                                        -73        63.0
+    3                         -125 → 181 → 103 → -167 → 139 → 183                         6          24.4
+    4                                         160                                         1          63.0
+    7                     -138 → -106 → -126 → 86 → -138 → 107 → -126                     46          9.8
+    8                                      179 → 160                                      22         63.2
+   10                                         -166                                        -74        63.2
+   11                                         -134                                        38         63.0
+   15                                         146                                         -63        63.0
+   18                                         113                                         71         63.2
+   19                                         -130                                        -50        62.5
+   21                                         113                                         -71        63.0
+   22                                         179                                         -28        62.9
+   29             -175 → -163 → -197 → 210 → 143 → 99 → 201 → 208 → 211 → -152            -44        25.0
+   35                                         170                                         62         61.7
+   37                                         142                                         69         59.7
+   38   123 → 144 → 152 → -211 → -208 → 162 → 205 → -147 → 145 → 172 → -149 → 175 → 206   65         21.4
+   39                                      110 → 192                                      19         53.6
+   40                                110 → 192 → -112 → 182                               2          29.6
+   41                                         159                                         -67        62.8
+   45                               110 → -119 → -166 → 182                               32         29.5
+   46                                      158 → -133                                     78         61.1
+   49                                         150                                         18         63.2
+   51                                         158                                         76         59.8
+   54                                         -136                                        7          62.8
+   59                                         134                                         52         63.1
+   60                                         -83                                         68         27.2
+   62                                     -164 → -164                                     10         60.4
+   64                                      190 → 190                                      63         42.3
+   70                                         -141                                        39         63.1
+   72                                          93                                         29         38.0
+   78                                  -100 → -186 → -111                                 23         28.4
+
+
+Creating loop unrolling bridges (2023-06-08 13:07:02)
+-----------------------------------------------------
+    When a SPAdes contig path connects an anchor contig with the middle contig of a simple loop, Unicycler concludes that the sequences are contiguous (i.e. the loop is not a separate piece of DNA). It then uses the read depth of the middle and repeat contigs to guess the number of times to traverse the loop and makes a bridge.
+
+                                  Loop count   Loop count    Loop    Bridge
+Start   Repeat   Middle     End    by repeat    by middle   count   quality
+  -41      -83       60      68         0.81         0.97       1      43.6
+  -26       93       72      29         0.77         1.04       1      44.7
+
+
+Applying bridges (2023-06-08 13:07:02)
+--------------------------------------
+    Unicycler now applies to the graph in decreasing order of quality. This ensures that when multiple, contradictory bridges exist, the most supported option is used.
+
+Bridge type   Start → end   Path                                       Quality
+SPAdes           18 → 71    113                                         63.244
+SPAdes            8 → 22    179, 160                                    63.222
+SPAdes          -21 → 34    141                                         63.220
+SPAdes           49 → 18    150                                         63.194
+SPAdes          -59 → 64    172, 198, 163                               63.166
+SPAdes           10 → -74   -166                                        63.151
+SPAdes           59 → 52    134                                         63.147
+SPAdes            1 → 33    150                                         63.131
+SPAdes           70 → 39    -141                                        63.053
+SPAdes           -5 → 20    -146                                        63.039
+SPAdes           15 → -63   146                                         63.036
+SPAdes            4 → 1     160                                         63.010
+SPAdes           11 → 38    -134                                        63.002
+SPAdes            2 → -73   -118                                        62.982
+SPAdes           21 → -71   113                                         62.972
+SPAdes           22 → -28   179                                         62.944
+SPAdes           41 → -67   159                                         62.777
+SPAdes           54 → 7     -136                                        62.767
+SPAdes           19 → -50   -130                                        62.478
+SPAdes          -53 → 55    142                                         62.256
+SPAdes           35 → 62    170                                         61.654
+SPAdes           46 → 78    158, -133                                   61.124
+SPAdes           62 → 10    -164, -164                                  60.396
+SPAdes           51 → 76    158                                         59.820
+SPAdes           37 → 69    142                                         59.720
+SPAdes           39 → 19    110, 192                                    53.618
+SPAdes           64 → 63    190, 190                                    42.265
+SPAdes          -26 → 72    93                                          38.201
+SPAdes           72 → 29    93                                          38.030
+SPAdes           40 → 2     110, 192, -112, 182                         29.647
+SPAdes           45 → 32    110, -119, -166, 182                        29.542
+SPAdes           78 → 23    -100, -186, -111                            28.360
+SPAdes          -31 → 44    181, 102, -167, 139, 183                    28.341
+SPAdes           60 → 68    -83                                         27.185
+SPAdes          -41 → 60    -83                                         27.176
+SPAdes          -16 → 35    100, -153, -135, -129                       25.984
+SPAdes           29 → -44   -175, -163, -197, 210, 143, 99, 201,        25.048
+                            208, 211, -152                                    
+SPAdes            3 → 6     -125, 181, 103, -167, 139, 183              24.380
+SPAdes          -28 → 49    130, -125, -97, 139                         24.002
+SPAdes           38 → 65    123, 144, 152, -211, -208, 162, 205,        21.377
+                            -147, 145, 172, -149, 175, 206                    
+SPAdes          -42 → 80    111, 91, -209, -135, -129, 82, 133          14.679
+
+Saving /home/asus/Desktop/CHRF_Project/Bioinformatics_Traning/Advance_Bioinformatics_Traning/Data/SPN_0140/3_Unicycler/003_bridges_applied.gfa
+
+
+Bridged assembly graph (2023-06-08 13:07:02)
+--------------------------------------------
+    The assembly is now mostly finished and no more structural changes will be made. Ideally the assembly graph should now have one contig per replicon and no erroneous contigs (i.e a complete assembly). If there are more contigs, then the assembly is not complete.
+
+Saving /home/asus/Desktop/CHRF_Project/Bioinformatics_Traning/Advance_Bioinformatics_Traning/Data/SPN_0140/3_Unicycler/004_final_clean.gfa
+
+Component   Segments   Links   Length      N50      Longest segment   Status    
+        1        117     157   2,079,512   95,907           253,022   incomplete
+
+
+Polishing assembly with Pilon (2023-06-08 13:07:02)
+---------------------------------------------------
+    Unicycler now conducts multiple rounds of Pilon in an attempt to repair any remaining small-scale errors with the assembly.
+
+Aligning reads to find appropriate insert size range...

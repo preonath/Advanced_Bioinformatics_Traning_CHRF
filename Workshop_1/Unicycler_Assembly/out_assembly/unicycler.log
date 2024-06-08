@@ -1,0 +1,54 @@
+
+Starting Unicycler (2023-09-11 13:17:44)
+----------------------------------------
+    Welcome to Unicycler, an assembly pipeline for bacterial genomes. Since you provided only short reads, Unicycler will essentially function as a SPAdes-optimiser. It will try many k-mer sizes, choose the best based on contig length and graph connectivity, and scaffold the graph using SPAdes repeat resolution.
+    For more information, please see https://github.com/rrwick/Unicycler
+
+Command: /usr/bin/unicycler -1 ERR2663496_1.fastq.gz -2 ERR2663496_2.fastq.gz --min_fasta_length 300 -t 100 --keep 1 -o out_assembly
+
+Unicycler version: v0.4.8
+Using 100 threads
+
+Warning: you have specified a lot more threads than this machine seems to have! Was this intentional?
+
+The output directory already exists:
+  /home/asus/Desktop/CHRF_Project/Bioinformatics_Traning/Advance_Bioinformatics_Traning/Unicycler_Assembly/out_assembly
+
+Dependencies:
+  Program         Version           Status  
+  spades          3.13.1            good    
+  racon                             not used
+  makeblastdb     2.13.0+           good    
+  tblastn         2.13.0+           good    
+  bowtie2-build   2.5.1             good    
+  bowtie2         2.5.1             good    
+  samtools        1.17              good    
+  java            17.0.3-internal   good    
+  pilon           ?                 good    
+  bcftools                          not used
+
+
+SPAdes read error correction (2023-09-11 13:17:54)
+--------------------------------------------------
+    Unicycler uses the SPAdes read error correction module to reduce the number of errors in the short read before SPAdes assembly. This can make the assembly faster and simplify the assembly graph structure.
+
+Command: /usr/lib/spades/bin/spades.py -1 /home/asus/Desktop/CHRF_Project/Bioinformatics_Traning/Advance_Bioinformatics_Traning/Unicycler_Assembly/ERR2663496_1.fastq.gz -2 /home/asus/Desktop/CHRF_Project/Bioinformatics_Traning/Advance_Bioinformatics_Traning/Unicycler_Assembly/ERR2663496_2.fastq.gz -o /home/asus/Desktop/CHRF_Project/Bioinformatics_Traning/Advance_Bioinformatics_Traning/Unicycler_Assembly/out_assembly/spades_assembly/read_correction --threads 32 --only-error-correction
+
+Corrected reads:
+  /home/asus/Desktop/CHRF_Project/Bioinformatics_Traning/Advance_Bioinformatics_Traning/Unicycler_Assembly/out_assembly/spades_assembly/corrected_1.fastq.gz
+  /home/asus/Desktop/CHRF_Project/Bioinformatics_Traning/Advance_Bioinformatics_Traning/Unicycler_Assembly/out_assembly/spades_assembly/corrected_2.fastq.gz
+
+
+Choosing k-mer range for assembly (2023-09-11 13:21:00)
+-------------------------------------------------------
+    Unicycler chooses a k-mer range for SPAdes based on the length of the input reads. It uses a wide range of many k-mer sizes to maximise the chance of finding an ideal assembly.
+
+SPAdes maximum k-mer: 127
+Median read length: 150
+K-mer range: 27, 47, 63, 77, 89, 99, 107, 115, 121, 127
+
+
+SPAdes assemblies (2023-09-11 13:21:10)
+---------------------------------------
+    Unicycler now uses SPAdes to assemble the short reads. It scores the assembly graph for each k-mer using the number of contigs (fewer is better) and the number of dead ends (fewer is better). The score function is 1/(c*(d+2)), where c is the contig count and d is the dead end count.
+

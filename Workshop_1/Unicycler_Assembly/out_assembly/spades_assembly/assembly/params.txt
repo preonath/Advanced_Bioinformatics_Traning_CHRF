@@ -1,0 +1,32 @@
+Command line: /usr/lib/spades/bin/spades.py	-o	/home/asus/Desktop/CHRF_Project/Bioinformatics_Traning/Advance_Bioinformatics_Traning/Unicycler_Assembly/out_assembly/spades_assembly/assembly	-k	27,47,63,77,89,99,107,115,121,127	--threads	32	--only-assembler	-1	/home/asus/Desktop/CHRF_Project/Bioinformatics_Traning/Advance_Bioinformatics_Traning/Unicycler_Assembly/out_assembly/spades_assembly/corrected_1.fastq.gz	-2	/home/asus/Desktop/CHRF_Project/Bioinformatics_Traning/Advance_Bioinformatics_Traning/Unicycler_Assembly/out_assembly/spades_assembly/corrected_2.fastq.gz	
+
+System information:
+  SPAdes version: 3.13.1
+  Python version: 3.10.12
+  OS: Linux-5.15.0-83-generic-x86_64-with-glibc2.35
+
+Output dir: /home/asus/Desktop/CHRF_Project/Bioinformatics_Traning/Advance_Bioinformatics_Traning/Unicycler_Assembly/out_assembly/spades_assembly/assembly
+Mode: ONLY assembling (without read error correction)
+Debug mode is turned OFF
+
+Dataset parameters:
+  Multi-cell mode (you should set '--sc' flag if input data was obtained with MDA (single-cell) technology or --meta flag if processing metagenomic dataset)
+  Reads:
+    Library number: 1, library type: paired-end
+      orientation: fr
+      left reads: ['/home/asus/Desktop/CHRF_Project/Bioinformatics_Traning/Advance_Bioinformatics_Traning/Unicycler_Assembly/out_assembly/spades_assembly/corrected_1.fastq.gz']
+      right reads: ['/home/asus/Desktop/CHRF_Project/Bioinformatics_Traning/Advance_Bioinformatics_Traning/Unicycler_Assembly/out_assembly/spades_assembly/corrected_2.fastq.gz']
+      interlaced reads: not specified
+      single reads: not specified
+      merged reads: not specified
+Assembly parameters:
+  k: [27, 47, 63, 77, 89, 99, 107, 115, 121, 127]
+  Repeat resolution is enabled
+  Mismatch careful mode is turned OFF
+  MismatchCorrector will be SKIPPED
+  Coverage cutoff is turned OFF
+Other parameters:
+  Dir for temp files: /home/asus/Desktop/CHRF_Project/Bioinformatics_Traning/Advance_Bioinformatics_Traning/Unicycler_Assembly/out_assembly/spades_assembly/assembly/tmp
+  Threads: 32
+  Memory limit (in Gb): 30
+

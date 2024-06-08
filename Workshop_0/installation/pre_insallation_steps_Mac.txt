@@ -1,0 +1,46 @@
+
+
+
+# 1. Update MacOS
+"Apple Icon" -> "About This Mac" -> "Software Update".
+
+
+# 2. Change shell to BASH
+From zsh to bash 
+
+chsh -s /bin/bash 
+
+
+> Close and open terminal again 
+
+
+############ Other info ###############
+
+
+
+# Check shell 
+
+echo $SHELL 
+
+# Switch back to zsh 
+
+chsh -s /bin/zsh 
+
+# Useful like: How to Change the Default Shell to Bash on macOS | howtogeek.com
+ 
+#########################################
+
+
+
+# 3. Install Xcode from your app store
+
+> Then install additional command line tools
+xcode-select --install
+
+> If it ask for license aggrement run following code
+sudo xcodebuild -license accept
+
+
+
+
+ 

@@ -1,0 +1,2 @@
+cut -d ',' -f 3 sars-cov-2-data.csv | sort | uniq -c | awk '{print $1,$2}' | sort -t ' ' -rn -k 1 | cut -d ' ' -f 2 | head -20 > top-20-variants.txt
+grep Bangladesh sars-cov-2-data.csv | grep complete > all-bd-compelete.csv

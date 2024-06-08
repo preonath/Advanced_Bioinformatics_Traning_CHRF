@@ -1,0 +1,34 @@
+### echo snippy 4.6.0
+### cd /home/asus/Desktop/CHRF_Project/Bioinformatics_Traning/Advance_Bioinformatics_Traning/Variant_calling
+
+### /home/asus/miniconda3/envs/bioinfo/bin/snippy --outdir /home/asus/Desktop/CHRF_Project/Bioinformatics_Traning/Advance_Bioinformatics_Traning/Data/SPN_0140/5_Mapping/5.1_variant_calling --R1 /home/asus/Desktop/CHRF_Project/Bioinformatics_Traning/Advance_Bioinformatics_Traning/Data/SPN_0140/1_RawData/SPN_0140_GPS_S122_L001_R1_001.fastq.gz --R2 /home/asus/Desktop/CHRF_Project/Bioinformatics_Traning/Advance_Bioinformatics_Traning/Data/SPN_0140/1_RawData/SPN_0140_GPS_S122_L001_R2_001.fastq.gz --ref /home/asus/Desktop/CHRF_Project/Bioinformatics_Traning/Advance_Bioinformatics_Traning/Mapping/Ref_SPN/NZ_CP035252_SPN.fa --cpus 12 --ram 20 --force --quiet
+
+### samtools faidx reference/ref.fa
+
+
+### bwa index reference/ref.fa
+
+[bwa_index] Pack FASTA... 0.01 sec
+[bwa_index] Construct BWT for the packed sequence...
+[bwa_index] 0.25 seconds elapse.
+[bwa_index] Update BWT... 0.01 sec
+[bwa_index] Pack forward-only FASTA... 0.00 sec
+[bwa_index] Construct SA from BWT and Occ... 0.09 sec
+[main] Version: 0.7.17-r1188
+[main] CMD: bwa index reference/ref.fa
+[main] Real time: 0.377 sec; CPU: 0.367 sec
+
+### mkdir -p reference/genomes && cp -f reference/ref.fa reference/genomes/ref.fa
+
+
+### ln -sf reference/ref.fa .
+
+
+### ln -sf reference/ref.fa.fai .
+
+
+### mkdir -p reference/ref && gzip -c reference/ref.gff > reference/ref/genes.gff.gz
+
+
+### bwa mem  -Y -M -R '@RG\tID:5.1_variant_calling\tSM:5.1_variant_calling' -t 12 reference/ref.fa /home/asus/Desktop/CHRF_Project/Bioinformatics_Traning/Advance_Bioinformatics_Traning/Data/SPN_0140/1_RawData/SPN_0140_GPS_S122_L001_R1_001.fastq.gz /home/asus/Desktop/CHRF_Project/Bioinformatics_Traning/Advance_Bioinformatics_Traning/Data/SPN_0140/1_RawData/SPN_0140_GPS_S122_L001_R2_001.fastq.gz | samclip --max 10 --ref reference/ref.fa.fai | samtools sort -n -l 0 -T /tmp --threads 5 -m 3333M | samtools fixmate -m --threads 5 - - | samtools sort -l 0 -T /tmp --threads 5 -m 3333M | samtools markdup -T /tmp --threads 5 -r -s - - > snps.bam
+

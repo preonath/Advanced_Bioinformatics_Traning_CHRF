@@ -1,0 +1,11 @@
+
+
+
+# Update and upgrade the distribution
+sudo apt-get update && sudo apt-get upgrade -y
+
+
+# Install some required libraries
+sudo apt install -y curl unzip build-essential ncurses-dev
+sudo apt install -y byacc zlib1g-dev git cmake python-is-python3
+sudo apt install -y default-jdk ant

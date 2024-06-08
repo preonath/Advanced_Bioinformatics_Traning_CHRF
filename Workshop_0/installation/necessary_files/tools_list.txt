@@ -1,0 +1,17 @@
+wget
+seqkit
+parallel
+bwa
+bowtie2
+r-base>=4
+bedtools
+samtools>=1.14
+bcftools
+trimmomatic
+fastqc
+blast
+mafft
+unicycler
+mlst
+raxml-ng
+igv

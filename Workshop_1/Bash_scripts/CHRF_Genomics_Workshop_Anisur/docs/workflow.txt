@@ -1,0 +1,6 @@
+- Take top-10-variant.txt file as input
+- Download reference genome.
+- Decompress the data/all-bd-sequences.fasta.tar.gz file.
+- Take each entry from top-10-variant.txt file, extract an accession id from all-bd-compelete.csv file for that variant.
+- Extract fasta sequence for that accession from data/all-bd-sequences.fasta file.
+- perform blast

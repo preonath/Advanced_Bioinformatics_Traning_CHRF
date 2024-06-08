@@ -1,0 +1,28 @@
+
+Starting Unicycler (2023-09-11 13:23:51)
+----------------------------------------
+    Welcome to Unicycler, an assembly pipeline for bacterial genomes. Since you provided only short reads, Unicycler will essentially function as a SPAdes-optimiser. It will try many k-mer sizes, choose the best based on contig length and graph connectivity, and scaffold the graph using SPAdes repeat resolution.
+    For more information, please see https://github.com/rrwick/Unicycler
+
+Command: /usr/bin/unicycler -1 ERR2663496_1.fastq.gz -2 ERR2663496_2.fastq.gz --min_fasta_length 300 -t 100 --keep 1 -o assembly_output
+
+Unicycler version: v0.4.8
+Using 100 threads
+
+Warning: you have specified a lot more threads than this machine seems to have! Was this intentional?
+
+The output directory already exists:
+  /home/asus/Desktop/CHRF_Project/Bioinformatics_Traning/Advance_Bioinformatics_Traning/Unicycler_Assembly/assembly_output
+
+Dependencies:
+  Program         Version           Status  
+  spades          3.13.1            good    
+  racon                             not used
+  makeblastdb     2.13.0+           good    
+  tblastn         2.13.0+           good    
+  bowtie2-build   2.5.1             good    
+  bowtie2         2.5.1             good    
+  samtools        1.17              good    
+  java            17.0.3-internal   good    
+  pilon           ?                 good    
+  bcftools                          not used

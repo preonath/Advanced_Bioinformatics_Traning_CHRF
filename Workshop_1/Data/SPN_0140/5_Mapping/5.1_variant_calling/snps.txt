@@ -1,0 +1,11 @@
+DateTime	2023-06-03T12:32:43
+ReadFiles	/home/asus/Desktop/CHRF_Project/Bioinformatics_Traning/Advance_Bioinformatics_Traning/Data/SPN_0140/1_RawData/SPN_0140_GPS_S122_L001_R1_001.fastq.gz /home/asus/Desktop/CHRF_Project/Bioinformatics_Traning/Advance_Bioinformatics_Traning/Data/SPN_0140/1_RawData/SPN_0140_GPS_S122_L001_R2_001.fastq.gz
+Reference	/home/asus/Desktop/CHRF_Project/Bioinformatics_Traning/Advance_Bioinformatics_Traning/Mapping/Ref_SPN/NZ_CP035252_SPN.fa
+ReferenceSize	2165373
+Software	snippy 4.6.0
+Variant-COMPLEX	1530
+Variant-DEL	130
+Variant-INS	139
+Variant-MNP	109
+Variant-SNP	9175
+VariantTotal	11083
